@@ -43,6 +43,7 @@ public class a extends LinearOpMode {
     private DcMotor backLeftDrive = null;
     private DcMotor frontRightDrive = null;
     private DcMotor backRightDrive = null;
+    private DcMotor arm = null;
 
     @Override
     public void runOpMode() {
@@ -53,7 +54,7 @@ public class a extends LinearOpMode {
         backLeftDrive = hardwareMap.get(DcMotor.class, "Bl");
         frontRightDrive = hardwareMap.get(DcMotor.class, "Fr");
         backRightDrive = hardwareMap.get(DcMotor.class, "Br");
-
+arm = hardwareMap.get(DcMotor.class, "aarm");
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
         // ########################################################################################
@@ -84,25 +85,27 @@ public class a extends LinearOpMode {
             double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
             double lateral =  gamepad1.left_stick_x;
             double yaw     =  gamepad1.right_stick_x;
-
+            double mooovArm =gamepad2.left_stick_x;
             // Combine the joystick requests for each axis-motion to determine each wheel's power.
             // Set up a variable for each drive wheel to save the power level for telemetry.
             double frontLeftPower  = axial + lateral + yaw;
             double frontRightPower = axial - lateral - yaw;
             double backLeftPower   = axial - lateral + yaw;
             double backRightPower  = axial + lateral - yaw;
-
+            double armp = mooovArm;
             // Normalize the values so no wheel power exceeds 100%
             // This ensures that the robot maintains the desired motion.
             max = Math.max(Math.abs(frontLeftPower), Math.abs(frontRightPower));
             max = Math.max(max, Math.abs(backLeftPower));
             max = Math.max(max, Math.abs(backRightPower));
+            max = Math.max(max, Math.abs(armp));
 
             if (max > 1.0) {
                 frontLeftPower  /= max;
                 frontRightPower /= max;
                 backLeftPower   /= max;
                 backRightPower  /= max;
+                armp /= max;
             }
 
             // This is test code:
@@ -127,12 +130,14 @@ public class a extends LinearOpMode {
             frontRightDrive.setPower(frontRightPower);
             backLeftDrive.setPower(backLeftPower);
             backRightDrive.setPower(backRightPower);
+            arm.setPower(armp);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", backLeftPower, backRightPower);
             telemetry.update();
+           
             
         }
     }}
