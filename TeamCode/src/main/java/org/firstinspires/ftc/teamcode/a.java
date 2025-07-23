@@ -105,8 +105,8 @@ arm = hardwareMap.get(DcMotor.class, "aarm");
                 frontRightPower /= max;
                 backLeftPower   /= max;
                 backRightPower  /= max;
-                armp /= max;
-            }
+                armp /= 0;
+             }
 
             // This is test code:
             //
@@ -137,7 +137,7 @@ arm = hardwareMap.get(DcMotor.class, "aarm");
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", backLeftPower, backRightPower);
             telemetry.update();
-           
+
             
         }
     }}
