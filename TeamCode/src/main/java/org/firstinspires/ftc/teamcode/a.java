@@ -60,18 +60,18 @@ public class a extends LinearOpMode {
         hand = hardwareMap.get(Servo.class, "H");
         handrist = hardwareMap.get(Servo.class, "Hs");
         hand.setPosition(0.0); // Range is 0.0 to 1.0
-       
+
         waitForStart();
 
         while (opModeIsActive()) {
-            if (gamepad1.a) {
+            if (gamepad2.x) {
                 hand.setPosition(1.0); // Fully open
-            } else if (gamepad1.b) {
+            } else if (gamepad2.y) {
                 hand.setPosition(0.0); // Fully closed
             }
 
-            telemetry.addData("Servo Position", hand.getPosition());
-            telemetry.update();
+
+
             // ########################################################################################
             // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
             // ########################################################################################
@@ -157,11 +157,16 @@ public class a extends LinearOpMode {
                 telemetry.addData("Status", "Run Time: " + runtime.toString());
                 telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
                 telemetry.addData("Back  left/Right", "%4.2f, %4.2f", backLeftPower, backRightPower);
+                telemetry.addData("Servo Position", hand.getPosition());
+
+                telemetry.addData("Gamepad A", gamepad1.a);
+                telemetry.addData("Gamepad B", gamepad1.b);
+
                 telemetry.update();
 
 
             }
-
         }
     }
+
 }
