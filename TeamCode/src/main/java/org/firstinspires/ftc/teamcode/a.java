@@ -60,15 +60,11 @@ public class a extends LinearOpMode {
         hand = hardwareMap.get(Servo.class, "H");
         handrist = hardwareMap.get(Servo.class, "Hs");
         hand.setPosition(0.0); // Range is 0.0 to 1.0
-
+        handrist.setPosition(0.0);
         waitForStart();
 
         while (opModeIsActive()) {
-            if (gamepad2.x) {
-                hand.setPosition(1.0); // Fully open
-            } else if (gamepad2.y) {
-                hand.setPosition(0.0); // Fully closed
-            }
+
 
 
 
@@ -97,7 +93,16 @@ public class a extends LinearOpMode {
             // run until the end of the match (driver presses STOP)
             while (opModeIsActive()) {
                 double max;
-
+                if (gamepad1.left_bumper) {
+                    hand.setPosition(1);
+                } else if (gamepad1.right_bumper) {
+                    hand.setPosition(0.9);
+                }
+                if (gamepad1.a) {
+                    handrist.setPosition(0);
+                } else if (gamepad1.b) {
+                    handrist.setPosition(0.2  );
+                }
                 // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
                 double axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
                 double lateral = gamepad1.left_stick_x;
