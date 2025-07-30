@@ -99,9 +99,9 @@ public class a extends LinearOpMode {
                     hand.setPosition(0.9);
                 }
                 if (gamepad1.a) {
-                    handrist.setPosition(0);
+                    handrist.setPosition(.1);
                 } else if (gamepad1.b) {
-                    handrist.setPosition(0.2  );
+                    handrist.setPosition(-0.2);
                 }
                 // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
                 double axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
