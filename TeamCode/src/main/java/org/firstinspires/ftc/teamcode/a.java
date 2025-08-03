@@ -60,7 +60,7 @@ public class a extends LinearOpMode {
         hand = hardwareMap.get(Servo.class, "H");
         handrist = hardwareMap.get(Servo.class, "Hs");
         hand.setPosition(0.0); // Range is 0.0 to 1.0
-        handrist.setPosition(0.0);
+        handrist.setPosition(0.25);
         waitForStart();
 
         while (opModeIsActive()) {
@@ -99,7 +99,7 @@ public class a extends LinearOpMode {
                     hand.setPosition(0.9);
                 }
                 if (gamepad1.a) {
-                    handrist.setPosition(.1);
+                    handrist.setPosition(.25);
                 } else if (gamepad1.b) {
                     handrist.setPosition(-0.2);
                 }
