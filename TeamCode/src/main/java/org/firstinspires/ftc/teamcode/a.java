@@ -47,6 +47,8 @@ public class a extends LinearOpMode {
     private Servo handrist = null;
     private Servo hand = null;
 
+    private DcMotor slide = null;
+
     @Override
     public void runOpMode() {
 
@@ -59,6 +61,7 @@ public class a extends LinearOpMode {
         arm = hardwareMap.get(DcMotor.class, "aarm");
         hand = hardwareMap.get(Servo.class, "H");
         handrist = hardwareMap.get(Servo.class, "Hs");
+        slide = hardwareMap.get(DcMotor.class, "s");
         hand.setPosition(0.0); // Range is 0.0 to 1.0
         handrist.setPosition(0.25);
         waitForStart();
@@ -108,6 +111,7 @@ public class a extends LinearOpMode {
                 double lateral = gamepad1.left_stick_x;
                 double yaw = gamepad1.right_stick_x;
                 double mooovArm = gamepad2.left_stick_x;
+                double mooovslide = gamepad2.right_stick_x;
 
                 // Combine the joystick requests for each axis-motion to determine each wheel's power.
                 // Set up a variable for each drive wheel to save the power level for telemetry.
@@ -116,6 +120,7 @@ public class a extends LinearOpMode {
                 double backLeftPower = axial - lateral + yaw;
                 double backRightPower = axial + lateral - yaw;
                 double armp = mooovArm;
+                double slidep = mooovslide;
 
                 // Normalize the values so no wheel power exceeds 100%
                 // This ensures that the robot maintains the desired motion.
@@ -130,7 +135,7 @@ public class a extends LinearOpMode {
                     backLeftPower /= max;
                     backRightPower /= max;
                     armp /= max;
-
+                    slidep /= max;
                 }
 
                 // This is test code:
@@ -156,6 +161,7 @@ public class a extends LinearOpMode {
                 backLeftDrive.setPower(backLeftPower);
                 backRightDrive.setPower(backRightPower);
                 arm.setPower(armp);
+                slide.setPower(armp);
 
 
                 // Show the elapsed game time and wheel power.
