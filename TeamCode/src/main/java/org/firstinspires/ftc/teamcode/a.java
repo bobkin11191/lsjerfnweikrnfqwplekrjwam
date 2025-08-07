@@ -47,7 +47,10 @@ public class a extends LinearOpMode {
     private Servo handrist = null;
     private Servo hand = null;
 
-    private DcMotor slide = null;
+
+
+    DcMotor slide;
+    boolean hasmoooved = false;
 
     @Override
     public void runOpMode() {
@@ -61,13 +64,21 @@ public class a extends LinearOpMode {
         arm = hardwareMap.get(DcMotor.class, "aarm");
         hand = hardwareMap.get(Servo.class, "H");
         handrist = hardwareMap.get(Servo.class, "Hs");
-        slide = hardwareMap.get(DcMotor.class, "s");
         hand.setPosition(0.0); // Range is 0.0 to 1.0
         handrist.setPosition(0.25);
+       slide = hardwareMap.get(DcMotor.class, "S");
+        slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slide.setDirection(DcMotor.Direction.FORWARD);
+        slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         waitForStart();
 
         while (opModeIsActive()) {
+if (gamepad1.dpad_up && !hasmoooved) {
 
+    moveMotorTicks(1000, 0.5); // Move 1000 ticks at 50% power
+    hasmoooved = true;
+
+}
 
 
 
@@ -111,7 +122,7 @@ public class a extends LinearOpMode {
                 double lateral = gamepad1.left_stick_x;
                 double yaw = gamepad1.right_stick_x;
                 double mooovArm = gamepad2.left_stick_x;
-                double mooovslide = gamepad2.right_stick_x;
+
 
                 // Combine the joystick requests for each axis-motion to determine each wheel's power.
                 // Set up a variable for each drive wheel to save the power level for telemetry.
@@ -120,7 +131,7 @@ public class a extends LinearOpMode {
                 double backLeftPower = axial - lateral + yaw;
                 double backRightPower = axial + lateral - yaw;
                 double armp = mooovArm;
-                double slidep = mooovslide;
+
 
                 // Normalize the values so no wheel power exceeds 100%
                 // This ensures that the robot maintains the desired motion.
@@ -135,7 +146,7 @@ public class a extends LinearOpMode {
                     backLeftPower /= max;
                     backRightPower /= max;
                     armp /= max;
-                    slidep /= max;
+
                 }
 
                 // This is test code:
@@ -161,7 +172,7 @@ public class a extends LinearOpMode {
                 backLeftDrive.setPower(backLeftPower);
                 backRightDrive.setPower(backRightPower);
                 arm.setPower(armp);
-                slide.setPower(armp);
+
 
 
                 // Show the elapsed game time and wheel power.
@@ -178,6 +189,22 @@ public class a extends LinearOpMode {
 
             }
         }
+
+
+    }
+    private void moveMotorTicks(int ticks, double power) {
+        slide.setTargetPosition(ticks);
+        slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide.setPower(power);
+
+        while (opModeIsActive() && slide.isBusy()) {
+            telemetry.addData("Moving to", ticks);
+            telemetry.addData("Current", slide.getCurrentPosition());
+            telemetry.update();
+        }
+
+        slide.setPower(1);
+        slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
 }
