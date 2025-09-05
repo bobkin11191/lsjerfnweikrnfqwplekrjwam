@@ -20,7 +20,7 @@ public class a extends LinearOpMode {
     private DcMotor arm = null;
     private Servo handrist = null;
     private Servo hand = null;
-
+private  Servo geaber = null;
 
 
     DcMotor slide;
@@ -38,12 +38,14 @@ public class a extends LinearOpMode {
         arm = hardwareMap.get(DcMotor.class, "aarm");
         hand = hardwareMap.get(Servo.class, "H");
         handrist = hardwareMap.get(Servo.class, "Hs");
+        geaber = hardwareMap.get(Servo.class, "gaber");
         hand.setPosition(0.0); // Range is 0.0 to 1.0
         handrist.setPosition(0.25);
        slide = hardwareMap.get(DcMotor.class, "S");
         slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide.setDirection(DcMotor.Direction.FORWARD);
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        geaber.setPosition(0.0);
         waitForStart();
 
         while (opModeIsActive()) {
@@ -81,6 +83,17 @@ if (gamepad1.left_bumper && !hasmoooved) {
                     handrist.setPosition(.25);
                 } else if (gamepad1.b) {
                     handrist.setPosition(-0.2);
+                }
+                if (gamepad1.dpad_up) {
+                    geaber.setPosition(1);
+
+                } else if (gamepad1.dpad_down) {
+                   geaber.setPosition(-1);
+
+                }
+                if (gamepad1.x) {
+                    hand.setPosition(.7);
+
                 }
                 // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
                 double axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
