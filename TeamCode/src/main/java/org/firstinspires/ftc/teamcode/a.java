@@ -17,9 +17,9 @@ public class a extends LinearOpMode {
     private DcMotor frontRightDrive = null;
     private DcMotor backRightDrive = null;
     private DcMotor arm = null;
-    private Servo handrist = null;
-    private Servo hand = null;
-private  Servo geaber = null;
+   // private Servo handrist = null;
+   // private Servo hand = null;
+//private  Servo geaber = null;
 
 
   //  DcMotor slide;
@@ -35,16 +35,16 @@ private  Servo geaber = null;
         frontRightDrive = hardwareMap.get(DcMotor.class, "Fr");
         backRightDrive = hardwareMap.get(DcMotor.class, "Br");
         arm = hardwareMap.get(DcMotor.class, "aarm");
-        hand = hardwareMap.get(Servo.class, "H");
-        handrist = hardwareMap.get(Servo.class, "Hs");
-        geaber = hardwareMap.get(Servo.class, "gaber");
-        hand.setPosition(0.0); // Range is 0.0 to 1.0
-        handrist.setPosition(0.25);
+       // hand = hardwareMap.get(Servo.class, "H");
+      //  handrist = hardwareMap.get(Servo.class, "Hs");
+       // geaber = hardwareMap.get(Servo.class, "gaber");
+       // hand.setPosition(0.0); // Range is 0.0 to 1.0
+      //  handrist.setPosition(0.25);
       // slide = hardwareMap.get(DcMotor.class, "S");
-        geaber.setPosition(0.0);
+      //  geaber.setPosition(0.0);
         waitForStart();
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         while (opModeIsActive()) {
 
 
@@ -67,24 +67,24 @@ private  Servo geaber = null;
             while (opModeIsActive()) {
                 double max;
                 if (gamepad1.left_bumper) {
-                    hand.setPosition(1);
+                  //  hand.setPosition(1);
                 } else if (gamepad1.right_bumper) {
-                    hand.setPosition(0.9);
+                   // hand.setPosition(0.9);
                 }
                 if (gamepad1.a) {
-                    handrist.setPosition(.25);
+                  //  handrist.setPosition(.25);
                 } else if (gamepad1.b) {
-                    handrist.setPosition(-0.2);
+                  //  handrist.setPosition(-0.2);
                 }
                 if (gamepad1.dpad_up) {
-                    geaber.setPosition(1);
+                  //  geaber.setPosition(1);
 
                 } else if (gamepad1.dpad_down) {
-                   geaber.setPosition(-1);
+                 //  geaber.setPosition(-1);
 
                 }
                 if (gamepad1.x) {
-                    hand.setPosition(.7);
+                   // hand.setPosition(.7);
 
                 }
                 // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
@@ -127,19 +127,19 @@ private  Servo geaber = null;
                 backLeftDrive.setPower(backLeftPower);
                 backRightDrive.setPower(backRightPower);
                 arm.setPower(armp);
-                slide.setPower(armp);
+               // slide.setPower(armp);
 
 
                 // Show the elapsed game time and wheel power.
                 telemetry.addData("Status", "Run Time: " + runtime.toString());
                 telemetry.addData("Front left/Right", "%4.2f, %4.2f", frontLeftPower, frontRightPower);
                 telemetry.addData("Back  left/Right", "%4.2f, %4.2f", backLeftPower, backRightPower);
-                telemetry.addData("Servo Position", hand.getPosition());
+               // telemetry.addData("Servo Position", hand.getPosition());
 
-                telemetry.addData("Gamepad A", gamepad1.a);
-                telemetry.addData("Gamepad B", gamepad1.b);
+              //  telemetry.addData("Gamepad A", gamepad1.a);
+               // telemetry.addData("Gamepad B", gamepad1.b);
 
-                telemetry.update();
+               // telemetry.update();
 
 
             }
