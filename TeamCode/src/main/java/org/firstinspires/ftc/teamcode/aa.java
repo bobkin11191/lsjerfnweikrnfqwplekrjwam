@@ -3,6 +3,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 public class aa extends OpMode{
+    @TeleOp
     public CRServo thing;
     @Override
     public void init() {
