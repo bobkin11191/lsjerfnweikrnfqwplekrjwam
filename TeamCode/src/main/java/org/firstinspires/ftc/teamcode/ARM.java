@@ -30,12 +30,12 @@ public class ARM extends OpMode{
         if(gamepad1.a) {
         arm.setTargetPosition(133);
             arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(.3);
+            arm.setPower(.4);
         }
         if(gamepad1.b) {
             arm.setTargetPosition(0);
             arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(.3);}
+            arm.setPower(.4 );}
 
 
         telemetry.addData("Trigger", trigger);
