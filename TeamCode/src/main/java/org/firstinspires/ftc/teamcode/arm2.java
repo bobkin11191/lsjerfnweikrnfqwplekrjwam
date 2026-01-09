@@ -29,7 +29,7 @@ public class arm2 extends OpMode{
         arm.setTargetPosition(170);
 
        }
-       if (pos < 169) {
+       if (pos < 170) {
           arm.setTargetPosition(0);
 
        }
